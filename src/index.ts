@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 
 server.listen(8080, () => {
-  console.log("server running on http://localhost:8080");
+  console.log("server running on https://users-api-crud.vercel.app/");
 });
 
 const MONGO_URL =
