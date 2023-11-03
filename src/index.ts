@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: "https://users-api-crud.vercel.app",
+    origin: "https://users-api-crud.vercel.app/users",
     credentials: true,
   })
 );
