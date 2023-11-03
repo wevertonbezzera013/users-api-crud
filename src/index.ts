@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: process.env.MONGO_URL,
+    origin: "https://users-api-crud.vercel.app",
     credentials: true,
   })
 );
