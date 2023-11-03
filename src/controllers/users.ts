@@ -8,11 +8,10 @@ export const getAllUsers = async (
 ) => {
   try {
     const users = await getAllUsersIncludingDeleted();
-
     return res.status(200).json(users);
   } catch (error) {
-    console.log(error);
-    return res.sendStatus(400);
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -26,12 +25,16 @@ export const deleteUser = async (
 ) => {
   try {
     const { id } = req.params;
-
     const deleteUser = await deleteUserById(id);
+
+    if (!deleteUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
     return res.json(deleteUser);
   } catch (error) {
-    console.log(error);
-    return res.sendStatus(error);
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
