@@ -35,6 +35,14 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MongoDB");
+});
+
+mongoose.connection.on("error", (error: Error) => {
+  console.error("MongoDB connection error:", error);
+});
+
 app.use("/", router());
 
 export default app;

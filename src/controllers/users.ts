@@ -7,10 +7,12 @@ export const getAllUsers = async (
   res: express.Response
 ) => {
   try {
+    console.log("Received GET request for /users");
     const users = await getAllUsersIncludingDeleted();
+    console.log("Sending response:", users);
     return res.status(200).json(users);
   } catch (error) {
-    console.error(error);
+    console.error("Error processing GET request for /users:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
