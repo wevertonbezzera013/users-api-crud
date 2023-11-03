@@ -7,9 +7,9 @@ export const getAllUsers = async (
   res: express.Response
 ) => {
   try {
-    /* const users = await getAllUsersIncludingDeleted(); */
+    const users = await getAllUsersIncludingDeleted();
 
-    return res.status(200).json("hello world");
+    return res.status(200).json(users);
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

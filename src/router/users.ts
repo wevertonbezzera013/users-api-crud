@@ -7,5 +7,4 @@ export default (router: express.Router) => {
   router.get("/users", isAuthenticated, getAllUsers);
   router.delete("/users/:id", isAuthenticated, canDeleteUser, deleteUser);
   router.patch("/users/:id", isAuthenticated, updateUser);
-  router.get("/users/hello", getAllUsers);
 };
