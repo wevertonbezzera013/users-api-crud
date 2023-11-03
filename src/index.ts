@@ -11,12 +11,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-
-const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:8080";
-
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: process.env.MONGO_URL,
     credentials: true,
   })
 );
