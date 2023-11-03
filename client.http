@@ -1,0 +1,8 @@
+POST https://users-api-crud.vercel.app/auth/register HTTP/1.1
+content-type: application/json
+
+{
+    "email": "newuser@email.com",
+    "password": "123123",
+    "username": "newuser"
+}

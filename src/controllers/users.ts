@@ -1,21 +1,15 @@
 import express from "express";
 
-import {
-  UserModel,
-  deleteUserById,
-  getUserById,
-  getUsers,
-  updateUserById,
-} from "../db/users";
+import { UserModel, deleteUserById, getUserById } from "../db/users";
 
 export const getAllUsers = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
-    const users = await getAllUsersIncludingDeleted();
+    /* const users = await getAllUsersIncludingDeleted(); */
 
-    return res.status(200).json(users);
+    return res.status(200).json("hello world");
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
