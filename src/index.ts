@@ -11,8 +11,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+
+const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:8080";
+
 app.use(
   cors({
+    origin: allowedOrigin,
     credentials: true,
   })
 );
@@ -33,22 +37,6 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
-const allowedOrigins = [
-  "http://localhost:8080",
-  "https://users-api-crud.vercel.app/",
-];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use("/", router());
 
 export default app;
