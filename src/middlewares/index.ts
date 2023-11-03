@@ -6,6 +6,19 @@ interface AuthenticatedRequest extends express.Request {
   userToDelete?: Record<string, any>;
 }
 
+export const isAuthenticated = (
+  req: AuthenticatedRequest,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  const currentUser = req.identity;
+
+  if (!currentUser) {
+    return res.status(401).json({ error: "Unauthorized - User not logged in" });
+  }
+  return next();
+};
+
 export const canDeleteUser = async (
   req: AuthenticatedRequest,
   res: express.Response,
