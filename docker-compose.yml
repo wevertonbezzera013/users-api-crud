@@ -23,7 +23,7 @@ services:
         depends_on:
             - mongodb
         environment:
-            MONGO_URL: "mongodb+srv://admin:okSybk03qiOlO9Fx@cluster0.cgim1j6.mongodb.net/?retryWrites=true&w=majority"
+            MONGO_URL: ""
 
         # Health Check
         healthcheck:
