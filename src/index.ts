@@ -11,13 +11,20 @@ import swaggerDocs from './swagger.json'
 
 dotenv.config()
 
+const CSS_URL =
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css'
+
 const app = express()
 
 app.use(compression())
 app.use(cookieParser())
 app.use(bodyParser.json())
 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use(
+    '/api/docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocs, { customCssUrl: CSS_URL })
+)
 
 const server = http.createServer(app)
 
