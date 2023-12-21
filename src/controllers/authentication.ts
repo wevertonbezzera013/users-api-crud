@@ -1,7 +1,6 @@
 import { createUser, getUserByEmail, getUserBySessionToken } from '../db/users'
 import express from 'express'
 import { authentication, random } from '../helpers'
-import logger from '../logger'
 
 export const login = async (req: express.Request, res: express.Response) => {
     try {
@@ -40,10 +39,10 @@ export const login = async (req: express.Request, res: express.Response) => {
             path: '/',
         })
 
-        logger.info(`User logged in: ${user._id}`)
+        console.log(`User logged in: ${user._id}`)
         return res.status(200).json(user).end()
     } catch (error) {
-        logger.error('Error in login:', error)
+        console.log('Error in login:', error)
         return res.sendStatus(400)
     }
 }
@@ -70,10 +69,10 @@ export const register = async (req: express.Request, res: express.Response) => {
             },
         })
 
-        logger.info(`User registered: ${user._id}`)
+        console.log(`User registered: ${user._id}`)
         return res.status(200).json(user).end()
     } catch (error) {
-        logger.error('Error in register:', error)
+        console.log('Error in register:', error)
         return res.sendStatus(400)
     }
 }
@@ -83,7 +82,7 @@ export const logout = async (req: express.Request, res: express.Response) => {
         const sessionToken = req.cookies['APP-AUTH']
 
         if (!sessionToken) {
-            logger.warn('Unauthorized access - User not logged in')
+            console.log('Unauthorized access - User not logged in')
             return res
                 .status(401)
                 .json({ error: 'Unauthorized - User not logged in' })
@@ -92,7 +91,7 @@ export const logout = async (req: express.Request, res: express.Response) => {
         const user = await getUserBySessionToken(sessionToken)
 
         if (!user) {
-            logger.warn('Unauthorized access - Invalid session token')
+            console.log('Unauthorized access - Invalid session token')
             return res
                 .status(401)
                 .json({ error: 'Unauthorized - Invalid session token' })
@@ -106,10 +105,10 @@ export const logout = async (req: express.Request, res: express.Response) => {
 
         res.clearCookie('APP-AUTH', { domain: 'localhost', path: '/' })
 
-        logger.info(`User logged out: ${user._id}`)
+        console.log(`User logged out: ${user._id}`)
         return res.status(200).json({ message: 'Logout successful' })
     } catch (error) {
-        logger.error('Error in logout:', error)
+        console.log('Error in logout:', error)
         return res.sendStatus(500)
     }
 }

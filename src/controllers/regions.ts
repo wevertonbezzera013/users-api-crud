@@ -1,18 +1,17 @@
 import express from 'express'
 import { RegionModel, deleteRegionById, getRegionById } from '../db/regions'
-import logger from '../logger'
 
 export const getAllRegions = async (
     req: express.Request,
     res: express.Response
 ) => {
     try {
-        logger.info('Received GET request for /regions')
+        console.log('Received GET request for /regions')
         const regions = await getAllRegionsIncludingDeleted()
-        logger.info('Sending response:', regions)
+        console.log('Sending response:', regions)
         return res.status(200).json(regions)
     } catch (error) {
-        logger.error('Error processing GET request for /regions:', error)
+        console.log('Error processing GET request for /regions:', error)
         return res.status(500).json({ error: 'Internal Server Error' })
     }
 }
@@ -29,7 +28,7 @@ export const createRegion = async (
         const { name, coordinates, owner } = req.body
 
         if (!name || !coordinates || !owner) {
-            logger.error('Missing required fields for creating a region')
+            console.log('Missing required fields for creating a region')
             return res.status(400).json({
                 error: 'Name, coordinates, and owner are required to create a region',
             })
@@ -41,10 +40,10 @@ export const createRegion = async (
             owner,
         })
 
-        logger.info(`Region created: ${newRegion._id}`)
+        console.log(`Region created: ${newRegion._id}`)
         return res.status(201).json(newRegion)
     } catch (error) {
-        logger.error('Error in createRegion:', error)
+        console.log('Error in createRegion:', error)
         return res.status(500).json({ error: 'Internal Server Error' })
     }
 }
@@ -58,14 +57,14 @@ export const deleteRegion = async (
         const deletedRegion = await deleteRegionById(id)
 
         if (!deletedRegion) {
-            logger.warn(`Region not found with id: ${id}`)
+            console.log(`Region not found with id: ${id}`)
             return res.status(404).json({ error: 'Region not found' })
         }
 
-        logger.info(`Region deleted: ${deletedRegion._id}`)
+        console.log(`Region deleted: ${deletedRegion._id}`)
         return res.json(deletedRegion)
     } catch (error) {
-        logger.error('Error in deleteRegion:', error)
+        console.log('Error in deleteRegion:', error)
         return res.status(500).json({ error: 'Internal Server Error' })
     }
 }
@@ -79,7 +78,7 @@ export const updateRegion = async (
         const { name, coordinates } = req.body
 
         if (!name && !coordinates) {
-            logger.error(
+            console.log(
                 'At least one field (name or coordinates) is required for update'
             )
             return res.status(400).json({
@@ -90,7 +89,7 @@ export const updateRegion = async (
         const region = await getRegionById(id)
 
         if (!region) {
-            logger.warn(`Region not found with id: ${id}`)
+            console.log(`Region not found with id: ${id}`)
             return res.status(404).json({ error: 'Region not found' })
         }
 
@@ -104,10 +103,10 @@ export const updateRegion = async (
 
         await region.save()
 
-        logger.info(`Region updated: ${region._id}`)
+        console.log(`Region updated: ${region._id}`)
         return res.status(200).json(region).end()
     } catch (error) {
-        logger.error('Error in updateRegion:', error)
+        console.log('Error in updateRegion:', error)
         return res.sendStatus(500)
     }
 }

@@ -8,7 +8,6 @@ import router from './router/index'
 import dotenv from 'dotenv'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocs from './swagger.json'
-import logger from './logger'
 
 dotenv.config()
 
@@ -23,21 +22,21 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 const server = http.createServer(app)
 
 server.listen(8080, () => {
-    logger.info('Server running on http://localhost:8080')
+    console.log('Server running on http://localhost:8080')
 })
 
 const MONGO_URL = process.env.MONGO_URL
 
 mongoose.Promise = Promise
 mongoose.connect(MONGO_URL as string)
-mongoose.connection.on('error', (error: Error) => logger.error(error))
+mongoose.connection.on('error', (error: Error) => console.log(error))
 
 mongoose.connection.on('connected', () => {
-    logger.info('Connected to MongoDB')
+    console.log('Connected to MongoDB')
 })
 
 mongoose.connection.on('error', (error: Error) => {
-    logger.error('MongoDB connection error:', error)
+    console.log('MongoDB connection error:', error)
 })
 
 app.use('/', router())
