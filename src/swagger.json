@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "OZMAP API",
-        "termsOfService": "http://localhost:8080/terms",
+        "title": "USERS API",
+        "termsOfService": "https://users-api-crud.vercel.app/terms",
         "contact": {
             "email": "wevertonbezzera013@gmail.com"
         },
@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8080/",
+            "url": "https://users-api-crud.vercel.app/",
             "description": "Test API"
         }
     ],
