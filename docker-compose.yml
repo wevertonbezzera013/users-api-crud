@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+    mongodb:
+        image: mongo
+        container_name: my-mongodb-container
+        restart: always
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example-password
+        volumes:
+            - mongodb-data:/data/db
+
+    nodejs-app:
+        build:
+            context: .
+            dockerfile: Dockerfile # Specify your Dockerfile for Node.js app
+        container_name: my-nodejs-app
+        ports:
+            - "8080:8080" # Adjust the port as per your Node.js app configuration
+        depends_on:
+            - mongodb
+        environment:
+            MONGO_URL: "mongodb+srv://admin:okSybk03qiOlO9Fx@cluster0.cgim1j6.mongodb.net/?retryWrites=true&w=majority"
+
+        # Health Check
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+volumes:
+    mongodb-data:
