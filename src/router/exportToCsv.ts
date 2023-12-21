@@ -1,11 +1,10 @@
 import { exportRegionsToCsv, exportUsersToCsv } from '../db/exportToCsv'
 import express from 'express'
-import logger from '../logger'
 
 export default (router: express.Router) => {
     router.get('/export/regions', async (req, res) => {
         try {
-            logger.info('Exporting regions...')
+            console.log('Exporting regions...')
             const filePath = await exportRegionsToCsv()
 
             res.setHeader(
@@ -16,21 +15,21 @@ export default (router: express.Router) => {
 
             res.sendFile(filePath, err => {
                 if (err) {
-                    logger.error('Error sending file:', err)
+                    console.log('Error sending file:', err)
                     res.status(500).send('Internal Server Error')
                 } else {
-                    logger.info('File sent successfully')
+                    console.log('File sent successfully')
                 }
             })
         } catch (error) {
-            logger.error('Error exporting regions:', error)
+            console.log('Error exporting regions:', error)
             res.status(500).send('Internal Server Error')
         }
     })
 
     router.get('/export/users', async (req, res) => {
         try {
-            logger.info('Exporting users...')
+            console.log('Exporting users...')
             const filePath = await exportUsersToCsv()
 
             res.setHeader(
@@ -41,14 +40,14 @@ export default (router: express.Router) => {
 
             res.sendFile(filePath, err => {
                 if (err) {
-                    logger.error('Error sending file:', err)
+                    console.log('Error sending file:', err)
                     res.status(500).send('Internal Server Error')
                 } else {
-                    logger.info('File sent successfully')
+                    console.log('File sent successfully')
                 }
             })
         } catch (error) {
-            logger.error('Error exporting users:', error)
+            console.log('Error exporting users:', error)
             res.status(500).send('Internal Server Error')
         }
     })

@@ -2,10 +2,10 @@
 
 const fs = require('fs')
 const path = require('path')
+import console from 'console'
 import { getRegions } from './regions'
 import { getUsers } from './users'
 import { json2csv, Json2CsvOptions } from 'json-2-csv'
-import logger from '../logger'
 
 const regionCsvPath = path.join(__dirname, 'regions.csv')
 const userCsvPath = path.join(__dirname, 'users.csv')
@@ -13,14 +13,14 @@ const userCsvPath = path.join(__dirname, 'users.csv')
 export const exportRegionsToCsv = async (): Promise<string> => {
     try {
         const regions = await getRegions()
-        logger.info('Original Regions data:', regions)
+        console.log('Original Regions data:', regions)
 
         const simplifiedRegions = regions.map(region => ({
             name: region.name,
             latitude: region.coordinates?.latitude ?? null,
             longitude: region.coordinates?.longitude ?? null,
         }))
-        logger.info('Simplified Regions data:', simplifiedRegions)
+        console.log('Simplified Regions data:', simplifiedRegions)
 
         const csv = await json2csv(simplifiedRegions, {
             checkSchemaDifferences: false,
@@ -36,11 +36,11 @@ export const exportRegionsToCsv = async (): Promise<string> => {
         } as Json2CsvOptions)
 
         fs.writeFileSync(regionCsvPath, csv)
-        logger.info('Regions exported to CSV')
+        console.log('Regions exported to CSV')
 
         return regionCsvPath
     } catch (error) {
-        logger.error('Error exporting regions to CSV:', error)
+        console.log('Error exporting regions to CSV:', error)
         throw error
     }
 }
@@ -48,7 +48,7 @@ export const exportRegionsToCsv = async (): Promise<string> => {
 export const exportUsersToCsv = async (): Promise<string> => {
     try {
         const users = await getUsers()
-        logger.info('Original Users data:', users)
+        console.log('Original Users data:', users)
 
         const simplifiedUsers = users.map(user => ({
             username: user.username,
@@ -56,7 +56,7 @@ export const exportUsersToCsv = async (): Promise<string> => {
             latitude: user.coordinates?.latitude ?? null,
             longitude: user.coordinates?.longitude ?? null,
         }))
-        logger.info('Simplified Users data:', simplifiedUsers)
+        console.log('Simplified Users data:', simplifiedUsers)
 
         const csv = await json2csv(simplifiedUsers, {
             checkSchemaDifferences: false,
@@ -72,11 +72,11 @@ export const exportUsersToCsv = async (): Promise<string> => {
         } as Json2CsvOptions)
 
         fs.writeFileSync(userCsvPath, csv)
-        logger.info('Users exported to CSV')
+        console.log('Users exported to CSV')
 
         return userCsvPath
     } catch (error) {
-        logger.error('Error exporting users to CSV:', error)
+        console.log('Error exporting users to CSV:', error)
         throw error
     }
 }
