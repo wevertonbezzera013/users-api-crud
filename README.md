@@ -35,7 +35,7 @@ docker-compose up -d --build
 
 ## Explore the API
 
-Open [http://localhost:8080/api/docs/](http://localhost:8080/api/docs/) in your browser to access the API documentation.
+Open [http://localhost:8080/api/docs/](http://localhost:8080/api/docs/) in your browser to access the API documentation locally or [https://users-api-crud.vercel.app/api/docs/](https://users-api-crud.vercel.app/api/docs/) to open the documentation online.
 
 ## Tools
 
