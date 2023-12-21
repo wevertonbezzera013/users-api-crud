@@ -12,7 +12,7 @@ import swaggerDocs from './swagger.json'
 dotenv.config()
 
 const CSS_URL =
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.6/swagger-ui.min.css'
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.10.5/swagger-ui.min.css'
 
 const app = express()
 
